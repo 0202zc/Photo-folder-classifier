@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JupyterPersistentConnectionParameters">
+    <option name="knownRemoteServers">
+      <list>
+        <JupyterConnectionParameters>
+          <option name="authType" value="notebook" />
+          <option name="token" value="744d94b695c6df1e5c243d301a2b2238b8a5e794d9c822cc" />
+          <option name="urlString" value="http://127.0.0.1:8888/" />
+          <authParams2>
+            <map>
+              <entry key="token" value="744d94b695c6df1e5c243d301a2b2238b8a5e794d9c822cc" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+      </list>
+    </option>
+    <option name="moduleParameters">
+      <map>
+        <entry key="$PROJECT_DIR$/../small-sample-data-classification-task/.idea/small-sample-data-classification-task.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,6 +1,7 @@
 import os
 import shutil
 import argparse
+import exifread
 
 
 def getFlist(file_dir):
@@ -19,10 +20,27 @@ def makedir(dir_path):
     os.makedirs(r"" + dir_path)
 
 
+def get_exif_date(file):
+    with open(os.path.join(file_dir, file), "rb") as file_data:
+        tags = exifread.process_file(file_data)
+        tag_date = 'EXIF DateTimeOriginal'
+        if tag_date not in tags:
+            print('Cannot find "EXIF DateTimeOriginal" tag.')
+            return None
+
+        shot_date, _ = tags[tag_date].printable.split(" ")
+        year, month, day = shot_date.split(":")
+        month = int(month)
+        day = int(day)
+        return month, day
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file_dir', default='D:\\photos', type=str, required=True, help='The directory of photos. For example: "D:\\photos\\11".')
-    parser.add_argument('--type', default='realme', type=str, required=False, help='The type of camera, such as "xiaomi" and "realme". To identify the patten of filename.')
+    parser.add_argument('--file_dir', default='D:\\照片', type=str, required=False,
+                        help='The directory of photos. For example: "D:\\照片\\5月".')
+    parser.add_argument('--type', default='realme', type=str, required=False,
+                        help='The type of camera, such as "xiaomi" and "realme". To identify the patten of filename.')
     args = parser.parse_args()
 
     type = args.type
@@ -30,15 +48,10 @@ if __name__ == '__main__':
     file_name = getFlist(file_dir)[0]
 
     for file in file_name:
-        if type == 'xiaomi':
-            date = file.split('_')[1]
-            month = int(date[4:6])
-            day = int(date[6:8])
-        if type == 'realme':
-            print(file)
-            date = file.split('_')[1] if file.__contains__('IMG_') else file[3:11]
-            month = int(date[4:6])
-            day = int(date[6:])
+        res = get_exif_date(file)
+        if res is None:
+            exit(-1)
+        month, day = res
 
         dir_name = str(month) + "." + str(day)
         dst = os.path.join(file_dir, dir_name)
