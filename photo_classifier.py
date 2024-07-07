@@ -41,7 +41,6 @@ if __name__ == '__main__':
                         help='The directory of photos. For example: "D:\\照片\\5月".')
     args = parser.parse_args()
 
-    type = args.type
     file_dir = args.file_dir
     file_name = getFlist(file_dir)[0]
 
