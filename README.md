@@ -13,7 +13,7 @@ D:\\photos\\11\\IMG20221104113200.jpg -> D:\\photos\\11\\11.4\\IMG20221104113200
 
 ## Requirements
 
-- Python 3.6+
+- Python 3.8+
 - Windows 10+
 
 ## Run
