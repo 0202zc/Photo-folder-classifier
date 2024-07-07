@@ -27,7 +27,7 @@ run `photo_classifier.bat` after modifying the file path `--file_dir`
 Execute the following command in cmd:
 
 ```sh
-python photo_classifier.py --file_dir="YOUR FILE DIRECTORY" --type="CHOOSE ONE OF THE TYPE: [xiaomi, realme]"
+python photo_classifier.py --file_dir="YOUR FILE DIRECTORY"
 ```
 
 
