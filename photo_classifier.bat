@@ -1,1 +1,1 @@
-python photo_classifier.py --file_dir="D:\\photos"
+photo_classifier.exe --file_dir="D:\\photos"

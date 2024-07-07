@@ -1,4 +1,5 @@
-from os import makedirs, path, walk
+from os import makedirs, walk
+from os.path import exists, join
 from shutil import move
 from argparse import ArgumentParser
 from exifread import process_file
@@ -15,13 +16,13 @@ def getFlist(file_dir):
 
 
 def makedir(dir_path):
-    if path.exists(dir_path):
+    if exists(dir_path):
         return None
     makedirs(r"" + dir_path)
 
 
 def get_exif_date(file):
-    with open(path.join(file_dir, file), "rb") as file_data:
+    with open(join(file_dir, file), "rb") as file_data:
         tags = process_file(file_data)
         tag_date = 'EXIF DateTimeOriginal'
         if tag_date not in tags:
@@ -42,6 +43,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     file_dir = args.file_dir
+    if not exists(file_dir):
+        print('The directory of photos is not exist.')
+        exit(-1)
     file_name = getFlist(file_dir)[0]
 
     for file in file_name:
@@ -51,13 +55,13 @@ if __name__ == '__main__':
         month, day = res
 
         dir_name = str(month) + "." + str(day)
-        dst = path.join(file_dir, dir_name)
+        dst = join(file_dir, dir_name)
         makedir(dst)
 
-        print(path.join(file_dir, file))
+        print(join(file_dir, file))
 
         try:
-            move(path.join(file_dir, file), dst)
+            move(join(file_dir, file), dst)
         except Exception as e:
             print(e)
             continue

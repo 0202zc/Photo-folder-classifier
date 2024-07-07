@@ -1,0 +1,1 @@
+python photo_classifier.py --file_dir="D:\\photos"

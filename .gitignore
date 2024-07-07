@@ -1,4 +1,8 @@
 .idea
+*.ico
+*.exe
+photo_classifier.bat
+pkg_installer.bat
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
