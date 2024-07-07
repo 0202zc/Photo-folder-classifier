@@ -1,12 +1,12 @@
-import os
-import shutil
-import argparse
-import exifread
+from os import makedirs, path, walk
+from shutil import move
+from argparse import ArgumentParser
+from exifread import process_file
 
 
 def getFlist(file_dir):
     file_list = []
-    for root, dirs, files in os.walk(file_dir):
+    for root, dirs, files in walk(file_dir):
         print('root_dir:', root)  # 当前路径
         print('sub_dirs:', dirs)  # 子文件夹
         print('files:', files)  # 文件名称，返回list类型
@@ -15,14 +15,14 @@ def getFlist(file_dir):
 
 
 def makedir(dir_path):
-    if os.path.exists(dir_path):
+    if path.exists(dir_path):
         return None
-    os.makedirs(r"" + dir_path)
+    makedirs(r"" + dir_path)
 
 
 def get_exif_date(file):
-    with open(os.path.join(file_dir, file), "rb") as file_data:
-        tags = exifread.process_file(file_data)
+    with open(path.join(file_dir, file), "rb") as file_data:
+        tags = process_file(file_data)
         tag_date = 'EXIF DateTimeOriginal'
         if tag_date not in tags:
             print('Cannot find "EXIF DateTimeOriginal" tag.')
@@ -36,7 +36,7 @@ def get_exif_date(file):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     parser.add_argument('--file_dir', default='D:\\照片', type=str, required=False,
                         help='The directory of photos. For example: "D:\\照片\\5月".')
     parser.add_argument('--type', default='realme', type=str, required=False,
@@ -54,13 +54,13 @@ if __name__ == '__main__':
         month, day = res
 
         dir_name = str(month) + "." + str(day)
-        dst = os.path.join(file_dir, dir_name)
+        dst = path.join(file_dir, dir_name)
         makedir(dst)
 
-        print(os.path.join(file_dir, file))
+        print(path.join(file_dir, file))
 
         try:
-            shutil.move(os.path.join(file_dir, file), dst)
+            move(path.join(file_dir, file), dst)
         except Exception as e:
             print(e)
             continue
