@@ -37,10 +37,8 @@ def get_exif_date(file):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--file_dir', default='D:\\照片', type=str, required=False,
+    parser.add_argument('--file_dir', default='D:\\照片', type=str, required=True,
                         help='The directory of photos. For example: "D:\\照片\\5月".')
-    parser.add_argument('--type', default='realme', type=str, required=False,
-                        help='The type of camera, such as "xiaomi" and "realme". To identify the patten of filename.')
     args = parser.parse_args()
 
     type = args.type
