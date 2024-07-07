@@ -31,10 +31,5 @@ python photo_classifier.py --file_dir="YOUR FILE DIRECTORY" --type="CHOOSE ONE O
 ```
 
 
-
-## NOTE
-
-Only supports XIAOMI and REALME's filename patten by default. You can also customize the name rules.
-
 ## UPDATE
 - 2024-07-07: Read EXIF data to classify photos.
