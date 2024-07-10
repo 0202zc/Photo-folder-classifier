@@ -49,10 +49,15 @@ if __name__ == '__main__':
     file_name = getFlist(file_dir)[0]
 
     for file in file_name:
-        res = get_exif_date(file)
-        if res is None:
-            exit(-1)
-        month, day = res
+        # The video has no EXIF, using filename to get the date.
+        if file.endswith('.mp4'):
+            res = str(file).split('.')[0].split('_')[1]
+            month, day = int(res[4:6]), int(res[-2:])
+        else:
+            res = get_exif_date(file)
+            if res is None:
+                exit(-1)
+            month, day = res
 
         dir_name = str(month) + "." + str(day)
         dst = join(file_dir, dir_name)

@@ -33,3 +33,4 @@ python photo_classifier.py --file_dir="YOUR FILE DIRECTORY"
 
 ## UPDATE
 - 2024-07-07: Read EXIF data to classify photos.
+- 2024-07-10: Fix the video EXIF error.
