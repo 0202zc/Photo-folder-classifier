@@ -1,16 +1,16 @@
+from argparse import ArgumentParser
+from exifread import process_file
 from os import makedirs, walk
 from os.path import exists, join
 from shutil import move
-from argparse import ArgumentParser
-from exifread import process_file
 
 
 def getFlist(file_dir):
     file_list = []
     for root, dirs, files in walk(file_dir):
-        print('root_dir:', root)  # 当前路径
-        print('sub_dirs:', dirs)  # 子文件夹
-        print('files:', files)  # 文件名称，返回list类型
+        print('root_dir:', root)  # current directory
+        print('sub_dirs:', dirs)  # subdirectory
+        print('files:', files)  # file name -> list
         file_list.append(files)
     return file_list
 
@@ -36,10 +36,16 @@ def get_exif_date(file):
         return month, day
 
 
+def get_date_by_filename(file):
+    date = file.split("_")[1]
+    month, day = int(date[4:6]), int(res[-2:])
+    return month, day
+
+
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('--file_dir', default='D:\\照片', type=str, required=True,
-                        help='The directory of photos. For example: "D:\\照片\\5月".')
+                        help='The directory of photos. For example: "D:\\照片\\1月".')
     args = parser.parse_args()
 
     file_dir = args.file_dir
@@ -56,7 +62,10 @@ if __name__ == '__main__':
         else:
             res = get_exif_date(file)
             if res is None:
-                exit(-1)
+                # If there is no EXIF, using file name to get the date.
+                res = get_date_by_filename(file)
+                if res is None:
+                    exit(-1)
             month, day = res
 
         dir_name = str(month) + "." + str(day)
